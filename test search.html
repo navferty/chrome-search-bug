@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test chrome search</title>
+</head>
+
+<body>
+    <script>
+        function removeItem() {
+            let spans = document.getElementsByClassName('FindMe');
+            spans[0].remove();
+        }
+    </script>
+
+    <button onclick="removeItem()">Remove one</button> <br>
+
+    <p>
+        To reproduce bug:
+    </p>
+    <ul>
+        <li>open search panel, type "Find Me" (without space). you see there are 4 results</li>
+        <li>click button once, to remove one of elements from search result set</li>
+        <li>set cursor to search panel, and press Enter to iterate over search results</li>
+    </ul>
+
+    <p>Expected behaviour: search result statistics are updated after first Enter press, or immediatly after DOM update
+    </p>
+
+    <p>Actual behaviour: user sees that he is iterating over 4 found items
+    <pre>1/4 -> 2/4 -> 3/4 -> 4/4 -> 1/4 -> ...</pre>
+    but actualy there are only 3 result left on the page</p>
+
+    <p>If user continues iterating, current index is shown incorrect:</p>
+
+    <pre>(1) 1/4 -> (2) 2/4 -> (3) 3/4 -> (1) 4/4 -> (2) 1/4 -> ...</pre>
+
+    <span class='FindMe'>FindMe</span>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum corrupti atque quibusdam harum, pariatur
+        facilis, explicabo vero praesentium minus enim amet est! Esse, ratione exercitationem pariatur corporis
+        necessitatibus distinctio odit.
+    </p>
+    <span class='FindMe'>FindMe</span>
+    <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi vitae facere, reiciendis odio in atque
+        dolores. Unde illo a facere, veniam at ab blanditiis voluptate numquam optio accusantium reprehenderit quisquam.
+    </p>
+    <span class='FindMe'>FindMe</span>
+    <p>
+        Magnam animi pariatur nobis officia dolorum dolore a dolor maiores qui soluta, numquam quasi autem laborum dicta
+        accusamus nisi! Consequuntur omnis saepe quasi aperiam voluptatem sed tempore dignissimos amet vero!
+    </p>
+    <span class='FindMe'>FindMe</span>
+</body>
+
+</html>
